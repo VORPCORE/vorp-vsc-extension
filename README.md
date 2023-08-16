@@ -1,10 +1,12 @@
 # VORP CORE VSC
 
+vorp core is a framework for `RedM` by CFX.re based on the game Read dead redemption 2
+
 ## Features
 
-*  `inventory exports with async and sync calls` old API isnt used only inventory new export methods are supported
-*  `core, user,character Snipets`
-*  `advanced in puts snippet` 
+*  `Inventory exports with async and sync calls` old API isnt used here only inventory new export methods are/will be supported.
+*  `Core, user,character auto completion Snippets`
+*  `Advanced inputs auto completion snippet` 
 
 ## Requirements
 
@@ -26,11 +28,8 @@
 ## Release Notes
 
 
-
 ### 1.0.0
 
 Initial release 
 
 ---
-
-

@@ -1,19 +1,25 @@
 {
   "name": "vorp-framework-vsc",
   "displayName": "vorp framework vsc",
-  "description": "Snippets for vorp core framework RedM",
-  "version": "0.0.1",
+  "description": "auto-completion Snippets for vorp core framework RedM",
+  "version": "0.0.3",
   "publisher": "outsider3100",
   "repository": {
     "type": "git",
     "url": "https://github.com/VORPCORE/vorp-vsc-extension"   
   },
-  "icon": "images/logo.png",
+  "keywords": [
+    "Lua",
+    "RedM",
+    "vorp"
+  ],
+  "icon": "logo.png",
   "engines": {
     "vscode": "^1.81.0"
   },
   "categories": [
-    "Snippets"
+    "Snippets",
+    "Programming Languages"
   ],
   "contributes": {
     "snippets": [
@@ -24,3 +30,6 @@
     ]
   }
 }
+
+
+

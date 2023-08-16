@@ -3,11 +3,12 @@
   "displayName": "vorp framework vsc",
   "description": "Snippets for vorp core framework RedM",
   "version": "0.0.1",
-  "publisher": "VORP",
+  "publisher": "outsider3100",
   "repository": {
     "type": "git",
     "url": "https://github.com/VORPCORE/vorp-vsc-extension"   
   },
+  "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.81.0"
   },

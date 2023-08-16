@@ -1,0 +1,785 @@
+{
+
+	//CORE API
+	"GET CORE OBJECT (server/client)": {
+		"scope": "lua",
+		"prefix": "core getCore",
+		"body": [
+			"Core = {}",
+			"TriggerEvent('getCore', function(obj)",
+			"  Core = obj",
+			"end)",
+			"$0"
+		],
+		"description": "get core object can be used in server or client"
+	},
+	"CALLBACK (server)": {
+		"scope": "lua",
+		"prefix": "core addRpcCallback callback",
+		"body": [
+			"Core.addRpcCallback(\"${1|RPCcallbackname|}\", function(source, cb, args)",
+			"  return cb(any)",
+			"end)",
+			"$0"
+		],
+		"description": "server callback register"
+	},
+	"CALLBACK (client)": {
+		"scope": "lua",
+		"prefix": "core RpcCall callback",
+		"body": [
+			"Core.RpcCall(\"${1|RPCcallbackname|}\", function(result)",
+			"  if not result then end",
+			"end,${2:args})",
+			"$0"
+		],
+		"description": "client callback trigger"
+	},
+	"CORE BASIC NOTIFY (server)": {
+		"scope": "lua",
+		"prefix": "core Notify",
+		"body": [
+			"Core.Notify${1|Tip,RightTip,Objective,Center|}(${2|_source|}, \"${3|text|}\", ${4|5000|})",	
+			"$0"		
+		],
+		"description": "Notifications server side"
+	},
+
+	"CORE ADVANCE NOTIFY (server)": {
+		"scope": "lua",
+		"prefix": "core NotifyAvanced",
+		"body": [
+			"Core.NotifyAvanced(${1|_source|}, \"${2|title|}\", \"${3|subtitle|}\", \"${4|dict|}\", \"${5|icon|}\", ${6|5000|}, \"${7|quality|}\")",
+			"$0"
+		],
+		"description": "Notifications server side"
+	},
+
+	"CORE LEFT NOTIFY (server)": {
+		"scope": "lua",
+		"prefix": "core NotifyLeft",
+		"body": [
+			"Core.NotifyLeft(${1|_source|}, \"${2|title|}\", \"${3|subtitle|}\", \"${4|dict|}\", \"${5|icon|}\", ${6|5000|}, \"${7|color|}\")",
+			"$0"
+		],
+		"description": "Notifications server side"
+	},
+
+	"CORE LEFT NOTIFY (client)": {
+		"scope": "lua",
+		"prefix": "core NotifyLeft ",
+		"body": [
+			"Core.NotifyLeft(${1|_source|}, \"${2|title|}\", \"${3|subtitle|}\", \"${4|dict|}\", \"${5|icon|}\", ${6|5000|}, \"${7|color|}\")",
+			"$0"
+		],
+		"description": "Notifications client side"
+	},
+	"CORE BASIC NOTIFY (client)": {
+		"scope": "lua",
+		"prefix": "core Notify",
+		"body": [
+			"Core.Notify${1|Tip,RightTip,Objective,Center|}(\"${2|text|}\", ${3|5000|})",	
+			"$0"		
+		],
+		"description": "Notifications client side"
+	},
+
+	"CORE ADVANCE NOTIFY (client)": {
+		"scope": "lua",
+		"prefix": "core NotifyAvanced",
+		"body": [
+			"Core.NotifyAvanced(\"${1|title|}\",\"${2|subtitle|}\",\"${3|dict|}\",\"${4|icon|}\",${5|5000|},\"${6|quality|}\")",
+			"$0"
+		],
+		"description": "Notifications client side"
+	},
+      
+	"ADD WEBHOOK (server/client)": {
+		"scope": "lua",
+		"prefix": "core addWebhook",
+		"body": [
+			"Core.AddWebhook(\"${1|title|}\",\"${2|webhooklink|}\",\"${3|description|}\",\"${4|color|}\",\"${5|name|}\",\"${6|logo|}\",\"${7|footerlogo|}\",\"${8|avatar|}\")",
+			"$0"
+		],
+		"description": "add webhook to discord"
+	},
+	"PLAYER INSTANCE (client)": {
+		"scope": "lua",
+		"prefix": "core instancePlayers",
+		"body": [
+			"-- to remove the player from instance put 0" ,
+			"Core.instancePlayers(${1:number})",
+			"$0"
+		],
+		"description": "add webhook to discord"
+	},
+	 "GET USER OBJECT (server)": {
+	 	"scope": "lua",
+	 	"prefix": "user object",
+	 	"body": [
+	 		"user = Core.getUser(${3:_source})",
+	 		"$0"
+	 	],
+	 	"description": " get User object"
+	 },
+	 "GET USER GROUP (server)": {
+	 	"scope": "lua",
+	 	"prefix": "user group",
+	 	"body": [
+	 		"user_${1|group,hours|} = user.${2|getGroup,hours|}",
+	 		"$0"
+	 	],
+	 	"description": "get user group"
+	 },
+
+	 "GET CHARACTER OBJECT (server)": {
+		"scope": "lua",
+		"prefix": "character object",
+		"body": ["character = Core.getUser(${3:_source}).getUsedCharacter", "$0"],
+		"description": " get character object"
+	},
+	"GET CHARACTER DATA (server)": {
+		"scope": "lua",
+		"prefix": "character DATA",
+		"body": ["char_${1|identifier,charid,job,grade,group,name,coords,isDead,gold,rol,xp,money,skin,comps|} = character.${2|identifier,charIdentifier,job,jobGrade,group,firstname ..' '.. character.lastname,coords,isDead,gold,rol,xp,money,skin,comps|}",
+			"$0"],
+		"description": " get character data "
+	},
+	" CHARACTER FUNCTIONS (server)": {
+		"scope": "lua",
+		"prefix": "character FUNCTIONS",
+		"body": ["character.${1|setJob(,setJobGrade(,setGroup(,addCurrency(,removeCurrency(,addXp(,removeXp(,updateComps(json.encode(,updateSkin(json.encode(,setFirstname(,setLastname(,setRol(,removeRol(|}$2)$3",
+			"$0"],
+		"description": "set character data "
+	},
+	//INPUTS
+	"ADVANCED INPUTS (client)": {
+		"scope": "lua",
+		"prefix": "input",
+		"body": [
+          "myInput = { ",
+		  "    type = \"enableinput\", -- don't touch",
+		  "    inputType = \"${1|input,textarea,number,date|}\", -- input type",
+		  "    button = \"${2|Confirm|}\", -- button name",
+		  "    placeholder = \"${3|NAME QUANTITY|}\", -- placeholder name",
+		  "    style = \"block\", -- don't touch",
+		  "    attributes = {",
+		  "       inputHeader = \"${4|GIVE ITEM|}\", -- header",
+		  "       type = \"${5|number|}\", -- inputype text, number,date,textarea ETC",
+		  "       pattern = \"${6|[0-9]|}\", --  only numbers \"[0-9]\" | for letters only \"[A-Za-z]+\" ",
+		  "       title = \"${7|numbers only|}\", -- if input doesnt match show this message",
+		  "       style = \"border-radius: 10px; background-color: ; border:none;\"-- style ",
+		  "   }",
+		  "}",
+		  "",
+		  "TriggerEvent(\"vorpinputs:advancedInput\", json.encode(myInput), function(result)",
+		  "   if result ~= 0 or result > 0 and result then -- make sure its not empty or nil",
+		  "      print(result) --returns string",
+		  "   else",
+		  "      print(\"it's empty?\") --notify",
+		  "   end",
+		  "end)"
+
+		],
+		"description": " advanced inputs accepts numbers dates text textarea and more"
+	},
+    //INVENTORY
+	//ITEMS
+	"canCarryItem ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory canCarryItem ASYNC",
+		"body": [
+			"exports.vorp_inventory:canCarryItem(${1|source|}, ${2|amount|}, function(result)",
+			"   if not result then",
+			"     return print(\"cant carry\")",
+			"   end",
+			"end)"
+		],
+		"description": "check if player can carry item by checking inventory limit "
+	},
+	"canCarryItem SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory canCarryItem SYNC",
+		"body": [
+			"canCarryInv = exports.vorp_inventory:canCarryItem(${1|source|}, ${2|amount|})",
+			"if not canCarryInv then",
+			"   return print(\"cant carry\")",
+			"end",
+			"$0"
+		],
+		"description": "check if player can carry item by checking inventory limit  "
+	},
+
+	"canCarryItems ASYNC (server)": {
+		"scope": "lua",
+		"prefix": "inventory canCarryItems ASYNC",
+		"body": [
+			"exports.vorp_inventory:canCarryItems(${1|source|}, \"${2|item|}\", ${3|amount|}, function(result)",
+			"   if not result then",
+			"      return print(\"cant carry\")",
+			"   end",
+			"end)"
+		],
+		"description": "check if player can carry item by checking item limit "
+	},
+	
+	"canCarryItems SYNC (server)": {
+		"scope": "lua",
+		"prefix": "inventory canCarryItems SYNC",
+		"body": [
+			"canCarryItem = exports.vorp_inventory:canCarryItems(${1|source|}, \"${2|item|}\", ${3|amount|})",
+			"if not canCarryItem then",
+			"   return print(\"cant carry\")",
+			"end",
+			"$0"
+		],
+		"description": "check if player can carry item by checking item limit  "
+	},
+	"getUserInventoryItems ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getUserInventoryItems ASYNC",
+		"body": [
+			"exports.vorp_inventory:getUserInventoryItems(${1|source|}, function(result)",
+			"   print(json.encode(result))",
+			"end)"
+		],
+		"description": "get user inventory items "
+	},
+	"getUserInventoryItems SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getUserInventoryItems SYNC",
+		"body": [
+			"inv = exports.vorp_inventory:getUserInventoryItems(${1|source|})",
+			"if not inv then",
+			"   return print(\"empty\")",
+			"end",
+			"$0"
+		],
+		"description": "get user inventory items  "
+	},
+
+	"registerUsableItem (server)": {
+		"scope": "lua",
+		"prefix": "inventory registerUsableItem",
+		"body": [
+			"exports.vorp_inventory:registerUsableItem(\"${1|item|}\", function(data)",
+			"   local _source = data.source",
+			"   local item = data.item",
+			"   local label = data.label",
+			"end)"
+		],
+		"description": "register usable item "
+	},
+	"getItemCount ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemCount ASYNC",
+		"body": [
+			"itemCount = exports.vorp_inventory:getItemCount(${1|source|}, \"${2|item|}\", ${3|nil,metadata|})",
+			"$0"
+		],
+		"description": "get item count "
+	},
+	"getItemCount SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemCount SYNC",
+		"body": [
+			"exports.vorp_inventory:getItemCount(${1|source|}, \"${2|item|}\", ${3|nil,metadata|}, function(result)",
+		    " print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "get item count (yncronous) "
+	},
+
+	"getItemByName ASYNC (server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemByName ASYNC",
+		"body": [
+			"exports.vorp_inventory:getItemByName(${1|source|}, \"${2|item|}\", function(result)",
+		    " print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "get item by name "
+	},
+
+	"getItemByName SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemByName SYNC",
+		"body": [
+			" item = exports.vorp_inventory:getItemByName(${1|source|}, \"${2|item|}\")",
+			"$0"
+		],
+		"description": "get item by name  "
+	},
+    "getItemContainingMetadata ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemContainingMetadata ASYNC",
+		"body": [
+			"exports.vorp_inventory:getItemContainingMetadata(${1|source|}, \"${2|item|}\", ${3|metadata|}, function(result)",
+		    " print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "get item by name "
+	},
+	"getItemMatchingMetadata SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemMatchingMetadata SYNC",
+		"body": [
+			"exports.vorp_inventory:getItemMatchingMetadata(${1|source|}, \"${2|item|}\", ${3|metadata|}, function(result)",
+		    " print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "get item by name  "
+	},
+	"addItem ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory addItem ASYNC",
+		"body": [
+			"exports.vorp_inventory:addItem(${1|source|}, \"${2|item|}\", ${3|amount|}, ${4|nil,metadata|}, function(result)",
+		    "   print(result)",
+			"end)",				
+			"$0"
+		],
+		"description": "add item "
+	}, 
+	"addItem SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory addItem SYNC",
+		"body": [
+			"exports.vorp_inventory:addItem(${1|source|}, \"${2|item|}\", ${3|amount|}, ${4|nil,metadata|})",			
+			"$0"
+		],
+		"description": "add item   "
+	}, 
+
+	"getItemByMainId ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemByMainId ASYNC",
+		"body": [
+			"exports.vorp_inventory:getItemByMainId(${1|source|}, ${2|mainid|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "get item by main id "
+	},
+	"getItemByMainId SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemByMainId SYNC",
+		"body": [
+			"item = exports.vorp_inventory:getItemByMainId(${1|source|}, ${2|mainid|})",
+			"$0"
+		],
+		"description": "get item by main id  "
+	},
+
+	"subItemById ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory subItemById ASYNC",
+		"body": [
+			"exports.vorp_inventory:subItemById(${1|source|}, ${2|id|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "sub item by id "
+	},
+	"subItemById SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory subItemById SYNC",
+		"body": [
+			"exports.vorp_inventory:subItemById(${1|source|}, ${2|id|})",
+			"$0"
+		],
+		"description": "sub item by id  "
+	},
+	"subItem ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory subItem ASYNC",
+		"body": [
+			"exports.vorp_inventory:subItem(${1|source|}, \"${2|item|}\", ${3|amount|}, ${4|nil,metadata|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "sub item "
+	},
+	"subItem SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory subItem SYNC",
+		"body": [
+			"exports.vorp_inventory:subItem(${1|source|}, \"${2|item|}\", ${3|amount|}, ${4|nil,metadata|})",
+			"$0"
+		],
+		"description": "sub item  "
+	},
+
+	"setItemMetadata ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory setItemMetadata ASYNC",
+		"body": [
+			"exports.vorp_inventory:setItemMetadata(${1|source|}, ${2|itemId|}, ${3|metadata|}, ${4|amount|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "set item metadata "
+	},
+	"setItemMetadata SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory setItemMetadata SYNC",
+		"body": [
+			"exports.vorp_inventory:setItemMetadata(${1|source|}, ${2|itemId|}, ${3|metadata|}, ${4|amount|})",
+			"$0"
+		],
+		"description": "set item metadata  "
+	},
+	"getItem ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItem ASYNC",
+		"body": [
+			"exports.vorp_inventory:getItem(${1|source|}, \"${2|item|}\", function(result)",
+		    "  print(result)",
+			"end, ${3|nil,metadata|})",
+			"$0"
+		],
+		"description": "get item "
+	},
+	"getItem SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItem Sync",
+		"body": [
+			"item = exports.vorp_inventory:getItem(${1|source|}, \"${2|item|}\", ${3|nil,metadata|})",
+			"$0"
+		],
+		"description": "get item "
+	},
+	//WEAPONS 
+	"canCarryWeapons ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory canCarryWeapons ASYNC",
+		"body": [
+			"exports.vorp_inventory:canCarryWeapons(${1|source|}, ${2|amount|}, \"${3|weaponName|}\", function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "can carry weapons"
+	},
+	"canCarryWeapons SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory canCarryWeapons SYNC",
+		"body": [
+			"canCarryWeapons = exports.vorp_inventory:canCarryWeapons(${1|source|}, ${2|amount|}, ${3|weaponName|})",
+			"$0"
+		],
+		"description": "can carry weapons "
+	}, 
+	"getUserWeapon ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getUserWeapon ASYNC",
+		"body": [
+			"exports.vorp_inventory:getUserWeapon(${1|source|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "get user weapon "
+	},
+	"getUserWeapon SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getUserWeapon SYNC",
+		"body": [
+			"weapon = exports.vorp_inventory:getUserWeapon(${1|source|})",
+			"$0"
+		],
+		"description": "get user weapon "
+	},
+	"getUserInventoryWeapons ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getUserInventoryWeapons ASYNC",
+		"body": [
+			"exports.vorp_inventory:getUserInventoryWeapons(${1|source|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "get user inventory weapons "
+	},
+	"getUserInventoryWeapons SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getUserInventoryWeapons SYNC",
+		"body": [
+			"weapons = exports.vorp_inventory:getUserInventoryWeapons(${1|source|})",
+			"$0"
+		],
+		"description": "get user inventory weapons "
+	},
+	"getWeaponBullets ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getWeaponBullets ASYNC",
+		"body": [
+			"exports.vorp_inventory:getWeaponBullets(${1|source|}, ${2|weaponID|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "get weapon bullets "
+	},
+	"getWeaponBullets SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getWeaponBullets SYNC",
+		"body": [
+			"bullets = exports.vorp_inventory:getWeaponBullets(${1|source|}, ${2|weaponID|})",
+			"$0"
+		],
+		"description": "get weapon bullets "
+	},
+	"removeAllUserAmmo SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory removeAllUserAmmo SYNC",
+		"body": [
+			"exports.vorp_inventory:removeAllUserAmmo(${1|source|})",
+			"$0"
+		],
+		"description": "remove all user ammo "
+	},
+	"addBullets SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory addBullets SYNC",
+		"body": [
+			"exports.vorp_inventory:addBullets(${1|source|}, ${2|bulletType|}, ${3|amount|})",
+			"$0"
+		],
+		"description": "add bullets "
+	},
+	"addBullets ASYNC(server)":{
+		"scope": "lua",
+		"prefix": "inventory addBullets ASYNC",
+		"body": [
+			"exports.vorp_inventory:addBullets(${1|source|}, ${2|bulletType|}, ${3|amount|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "add bullets "
+	},
+	"subBullets SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory subBullets SYNC",
+		"body": [
+			"exports.vorp_inventory:subBullets(${1|source|}, ${2|bulletType|}, ${3|amount|})",
+			"$0"
+		],
+		"description": "sub bullets "
+	},
+	"subBullets ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory subBullets ASYNC",
+		"body": [
+			"exports.vorp_inventory:subBullets(${1|source|}, ${2|bulletType|}, ${3|amount|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "sub bullets "
+	},
+	"getWeaponComponents ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getWeaponComponents ASYNC",
+		"body": [
+			"exports.vorp_inventory:getWeaponComponents(${1|source|}, ${2|weaponID|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "get weapon components "
+	},
+	"getWeaponComponents SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getWeaponComponents SYNC",
+		"body": [
+			"components = exports.vorp_inventory:getWeaponComponents(${1|source|}, ${2|weaponID|})",
+			"$0"
+		],
+		"description": "get weapon components "
+	},
+	"deleteWeapon ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory deleteWeapon ASYNC",
+		"body": [
+			"exports.vorp_inventory:deleteWeapon(${1|source|}, ${2|weaponID|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "delete weapon "
+	},
+	"deleteWeapon SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory deleteWeapon SYNC",
+		"body": [
+			"exports.vorp_inventory:deleteWeapon(${1|source|}, ${2|weaponID|})",
+			"$0"
+		],
+		"description": "delete weapon "
+	},
+	"createWeapon ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory createWeapon ASYNC",
+		"body": [
+			"exports.vorp_inventory:registerWeapon(${1|source|}, \"${2|weaponName|}\", ${3|ammo|}, ${4|components|}, ${5|comps|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "create weapon "
+	},
+	"createWeapon SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory createWeapon SYNC",
+		"body": [
+			"exports.vorp_inventory:registerWeapon(${1|source|}, \"${2|weaponName|}\", ${3|ammo|}, ${4|components|}, ${5|comps|})",
+			"$0"
+		],
+		"description": "create weapon "
+	},
+	"giveWeapon ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory giveWeapon ASYNC",
+		"body": [
+			"exports.vorp_inventory:giveWeapon(${1|source|}, ${2|weaponId|}, ${3|target|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "give weapon "
+	},
+	"giveWeapon SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory giveWeapon SYNC",
+		"body": [
+			"exports.vorp_inventory:giveWeapon(${1|source|}, ${2|weaponId|}, ${3|target|})",
+			"$0"
+		],
+		"description": "give weapon "
+	},
+	"subWeapon ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory subWeapon ASYNC",
+		"body": [
+			"exports.vorp_inventory:subWeapon(${1|source|}, ${2|weaponId|}, function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "sub weapon "
+	},
+	"subWeapon SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory subWeapon SYNC",
+		"body": [
+			"exports.vorp_inventory:subWeapon(${1|source|}, ${2|weaponId|})",
+			"$0"
+		],
+		"description": "sub weapon "
+	},
+	// custom inventory 
+	"registerInventory (server)": {
+		"scope": "lua",
+		"prefix": "inventory registerInventory",
+		"body": [
+			"exports.vorp_inventory:registerInventory(\"${1|invId|}\", \"${2|name|}\", ${3|slots|}, ${4|acceptWeapons|}, ${5|shared|}, ${6|ignoreStack|}, ${7|whitelistItems|}, ${8|usePermisions|}, ${9|useBlacklist|}, ${10|whitelistWeapons|})",
+			"$0"
+		],
+		"description": "register inventory "
+	},
+	"addPermissionMoveToCustom (server)": {
+		"scope": "lua",
+		"prefix": "inventory addPermissionMoveToCustom",
+		"body": [
+			"exports.vorp_inventory:addPermissionMoveToCustom(\"${1|invId|}\", \"${2|jobName|}\", ${3|jobgrade|})",
+			"$0"
+		],
+		"description": "add permission to move to custom inventory "
+	},
+	"addPermissionTakeFromCustom (server)": {
+		"scope": "lua",
+		"prefix": "inventory addPermissionTakeFromCustom",
+		"body": [
+			"exports.vorp_inventory:addPermissionTakeFromCustom(\"${1|invId|}\", \"${2|jobName|}\", ${3|jobgrade|})",
+			"$0"
+		],
+		"description": "add permission to take from custom inventory "
+	},
+	"blackListCustomAny (server)": {
+		"scope": "lua",
+		"prefix": "inventory blackListCustomAny",
+		"body": [
+			"exports.vorp_inventory:blackListCustomAny(\"${1|invId|}\", \"${2|item|}\")",
+			"$0"
+		],
+		"description": "blacklist item from custom inventory "
+	},
+	"removeInventory (server)": {
+		"scope": "lua",
+		"prefix": "inventory removeInventory",
+		"body": [
+			"exports.vorp_inventory:removeInventory(\"${1|invId|}\")",
+			"$0"
+		],
+		"description": "remove inventory from session"
+	},
+	"updateCustomInventorySlots (server)": {
+		"scope": "lua",
+		"prefix": "inventory updateCustomInventorySlots",
+		"body": [
+			"exports.vorp_inventory:updateCustomInventorySlots(\"${1|invId|}\", ${2|slots|})",
+			"$0"
+		],
+		"description": "update custom inventory slots"
+	},
+	"setCustomInventoryItemLimit (server)": {
+		"scope": "lua",
+		"prefix": "inventory setCustomInventoryItemLimit",
+		"body": [
+			"exports.vorp_inventory:setCustomInventoryItemLimit(\"${1|invId|}\", \"${2|item|}\", ${3|limit|})",
+			"$0"
+		],
+		"description": "set custom inventory item limit"
+	},
+	"setCustomInventoryWeaponLimit (server)": {
+		"scope": "lua",
+		"prefix": "inventory setCustomInventoryWeaponLimit",
+		"body": [
+			"exports.vorp_inventory:setCustomInventoryWeaponLimit(\"${1|invId|}\", \"${2|weapon|}\", ${3|limit|})",
+			"$0"
+		],
+		"description": "set custom inventory weapon limit"
+	},
+	"openCustomInventory (server)": {
+		"scope": "lua",
+		"prefix": "inventory openCustomInventory",
+		"body": [
+			"exports.vorp_inventory:openCustomInventory(${1|source|}, \"${2|invId|}\")",
+			"$0"
+		],
+		"description": "open custom inventory"
+	},
+	"closeCustomInventory (server)": {
+		"scope": "lua",
+		"prefix": "inventory closeCustomInventory",
+		"body": [
+			"exports.vorp_inventory:closeCustomInventory(${1|source|}, \"${2|invId|}\")",
+			"$0"
+		],
+		"description": "close custom inventory"
+	},
+
+}
+
+
+

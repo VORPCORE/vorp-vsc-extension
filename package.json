@@ -1,0 +1,25 @@
+{
+  "name": "vorp-framework-vsc",
+  "displayName": "vorp framework vsc",
+  "description": "Snippets for vorp core framework RedM",
+  "version": "0.0.1",
+  "publisher": "VORP",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VORPCORE/vorp-vsc-extension"   
+  },
+  "engines": {
+    "vscode": "^1.81.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "lua",
+        "path": "./snippets/snippets.code-snippets"
+      }
+    ]
+  }
+}

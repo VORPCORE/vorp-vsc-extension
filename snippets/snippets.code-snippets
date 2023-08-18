@@ -1,5 +1,4 @@
 {
-
 	//CORE API
 	"GET CORE OBJECT (server/client)": {
 		"scope": "lua",
@@ -274,7 +273,7 @@
 		"scope": "lua",
 		"prefix": "inventory getItemCount ASYNC",
 		"body": [
-			"itemCount = exports.vorp_inventory:getItemCount(${1|source|}, \"${2|item|}\", ${3|nil,metadata|})",
+			"itemCount = exports.vorp_inventory:getItemCount(${1|source|},nil,\"${2|item|}\", ${3|nil,metadata|})",
 			"$0"
 		],
 		"description": "get item count "
@@ -283,14 +282,38 @@
 		"scope": "lua",
 		"prefix": "inventory getItemCount SYNC",
 		"body": [
-			"exports.vorp_inventory:getItemCount(${1|source|}, \"${2|item|}\", ${3|nil,metadata|}, function(result)",
+			"exports.vorp_inventory:getItemCount(${1|source|}, function(result)",
 		    " print(result)",
+			"end ,\"${2|item|}\", ${3|nil,metadata|})",
+			"$0"
+		],
+		"description": "get item count "
+	},
+	"getItemDB ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemCount ASYNC",
+		"body": [
+			"itemDB = exports.vorp_inventory:getItemDB(\"${2|item|}\")",
+			"if not itemDB then",
+			"   return print(\"item does not exist\")",
+			"end",
+			"$0"
+		],
+		"description": "get item count "
+	},
+	"getItemDB SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getItemCount SYNC",
+		"body": [
+			"exports.vorp_inventory:getItemDB(\"${2|item|}\", function(result)",
+		    " if not result then",
+			"   return print(\"item does not exist\")",
+			" end",
 			"end)",
 			"$0"
 		],
-		"description": "get item count (yncronous) "
+		"description": "get item count "
 	},
-
 	"getItemByName ASYNC (server)": {
 		"scope": "lua",
 		"prefix": "inventory getItemByName ASYNC",
@@ -452,7 +475,7 @@
 		"scope": "lua",
 		"prefix": "inventory getItem Sync",
 		"body": [
-			"item = exports.vorp_inventory:getItem(${1|source|}, \"${2|item|}\", ${3|nil,metadata|})",
+			"item = exports.vorp_inventory:getItem(${1|source|}, \"${2|item|}\",nil,${3|nil,metadata|})",
 			"$0"
 		],
 		"description": "get item "
@@ -473,7 +496,7 @@
 		"scope": "lua",
 		"prefix": "inventory canCarryWeapons SYNC",
 		"body": [
-			"canCarryWeapons = exports.vorp_inventory:canCarryWeapons(${1|source|}, ${2|amount|}, ${3|weaponName|})",
+			"canCarryWeapons = exports.vorp_inventory:canCarryWeapons(${1|source|}, ${2|amount|},nil,\"${3|weaponName|}\")",
 			"$0"
 		],
 		"description": "can carry weapons "
@@ -484,7 +507,7 @@
 		"body": [
 			"exports.vorp_inventory:getUserWeapon(${1|source|}, function(result)",
 		    "  print(result)",
-			"end)",
+			"end ,${2|weaponId|})",
 			"$0"
 		],
 		"description": "get user weapon "
@@ -493,7 +516,7 @@
 		"scope": "lua",
 		"prefix": "inventory getUserWeapon SYNC",
 		"body": [
-			"weapon = exports.vorp_inventory:getUserWeapon(${1|source|})",
+			"weapon = exports.vorp_inventory:getUserWeapon(${1|source|},nil,${2|weaponId|})",
 			"$0"
 		],
 		"description": "get user weapon "
@@ -631,7 +654,7 @@
 		"scope": "lua",
 		"prefix": "inventory createWeapon ASYNC",
 		"body": [
-			"exports.vorp_inventory:registerWeapon(${1|source|}, \"${2|weaponName|}\", ${3|ammo|}, ${4|components|}, ${5|comps|}, function(result)",
+			"exports.vorp_inventory:createWeapon(${1|source|}, \"${2|weaponName|}\", ${3|ammo|}, ${4|components|}, ${5|comps|}, function(result)",
 		    "  print(result)",
 			"end)",
 			"$0"
@@ -642,7 +665,7 @@
 		"scope": "lua",
 		"prefix": "inventory createWeapon SYNC",
 		"body": [
-			"exports.vorp_inventory:registerWeapon(${1|source|}, \"${2|weaponName|}\", ${3|ammo|}, ${4|components|}, ${5|comps|})",
+			"exports.vorp_inventory:createWeapon(${1|source|}, \"${2|weaponName|}\", ${3|ammo|}, ${4|components|}, ${5|comps|})",
 			"$0"
 		],
 		"description": "create weapon "
@@ -760,20 +783,20 @@
 		],
 		"description": "set custom inventory weapon limit"
 	},
-	"openCustomInventory (server)": {
+	"openInventory (server)": {
 		"scope": "lua",
-		"prefix": "inventory openCustomInventory",
+		"prefix": "inventory openInventory",
 		"body": [
-			"exports.vorp_inventory:openCustomInventory(${1|source|}, \"${2|invId|}\")",
+			"exports.vorp_inventory:openInventory(${1|source|}, \"${2|invId,nil|}\")",
 			"$0"
 		],
 		"description": "open custom inventory"
 	},
-	"closeCustomInventory (server)": {
+	"closeInventory (server)": {
 		"scope": "lua",
-		"prefix": "inventory closeCustomInventory",
+		"prefix": "inventory closeInventory",
 		"body": [
-			"exports.vorp_inventory:closeCustomInventory(${1|source|}, \"${2|invId|}\")",
+			"exports.vorp_inventory:closeInventory(${1|source|}, \"${2|invId,nil|}\")",
 			"$0"
 		],
 		"description": "close custom inventory"

@@ -462,9 +462,9 @@
 		"scope": "lua",
 		"prefix": "inventory canCarryWeapons ASYNC",
 		"body": [
-			"exports.vorp_inventory:canCarryWeapons(${1|source|}, ${2|amount|}, \"${3|weaponName|}\", function(result)",
+			"exports.vorp_inventory:canCarryWeapons(${1|source|}, ${2|amount|}, function(result)",
 		    "  print(result)",
-			"end)",
+			"end,\"${3|weaponName|}\")",
 			"$0"
 		],
 		"description": "can carry weapons"

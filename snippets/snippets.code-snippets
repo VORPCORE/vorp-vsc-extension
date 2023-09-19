@@ -12,7 +12,87 @@
 		],
 		"description": "get core object can be used in server or client"
 	},
-	"CALLBACK (server)": {
+    "GET CALLBACK OBJECT (server)": {
+		"scope": "lua",
+		"prefix": "callback",
+		"body": [
+			"local ServerRPC = exports.vorp_core:ServerRpcCall()",
+		],
+		"description": "callback object can be used in server"
+	},
+	"GET CALLBACK OBJECT (client)": {
+		"scope": "lua",
+		"prefix": "callback",
+		"body": [
+			"local ClientRPC = exports.vorp_core:ClientRpcCall()",
+		],
+		"description": "callback object can be used in client"
+	},
+
+	"REGISTER CALLBACK (server)": {
+		"scope": "lua",
+		"prefix": "register callback",
+		"body": [
+			"ServerRPC.Callback.Register(\"${1|callbackname|}\", function(source, cb, ${4|args,...|})",
+			"  return cb(any)",
+			"end)",
+			"$0"
+		],
+		"description": "register callback server side"
+	},
+	"TRIGGER AWAIT CALLBACK (server)": {
+		"scope": "lua",
+		"prefix": "trigger callback",
+		"body": [
+			"local result = ClientRPC.Callback.TriggerAwait(\"${1|callbackname|}\",source, ${4|args,...|})",
+			"$0"
+		],
+		"description": "Trigger callback Await server side"
+	},
+	"TRIGGER ASYNC CALLBACK (server)": {
+		"scope": "lua",
+		"prefix": "trigger callback",
+		"body": [
+			"ClientRPC.Callback.TriggerAsync(\"${1|callbackname|}\",source, function(result)"
+			" print(result)",
+			"end, ${4|args,...|})",
+			"$0"
+		],
+		"description": "Trigger callback Async server side"
+	},
+	"REGISTER CALLBACK (client)": {
+		"scope": "lua",
+		"prefix": "trigger callback",
+		"body": [
+			"ClientRPC.Callback.Register(\"${1|callbackname|}\", function(cb, ${4|args,...|})",
+			"  return cb(any)",
+			"end)",
+			"$0"
+		],
+		"description": "register callback client side"
+	},
+	"TRIGGER AWAIT CALLBACK (client)": {
+		"scope": "lua",
+		"prefix": "trigger callback",
+		"body": [
+			"local result = ClientRPC.Callback.TriggerAwait(\"${1|callbackname|}\", ${4|args,...|})",
+			"$0"
+		],
+		"description": "Trigger callback Await client side"
+	},
+	"TRIGGER ASYNC CALLBACK (client)": {
+		"scope": "lua",
+		"prefix": "trigger callback",
+		"body": [
+			"ClientRPC.Callback.TriggerAsync(\"${1|callbackname|}\", function(result)"
+			" print(result)",
+			"end, ${4|args,...|})",
+			"$0"
+		],
+		"description": "Trigger callback Async client side"
+	},
+
+/* 	"CALLBACK (server)": {
 		"scope": "lua",
 		"prefix": "core addRpcCallback callback",
 		"body": [
@@ -33,7 +113,8 @@
 			"$0"
 		],
 		"description": "client callback trigger"
-	},
+	}, */
+
 	"CORE BASIC NOTIFY (server)": {
 		"scope": "lua",
 		"prefix": "core Notify",
@@ -399,22 +480,22 @@
 		"description": "get item by main id  "
 	},
 
-	"subItemById ASYNC(server)": {
+	"subItemID ASYNC(server)": {
 		"scope": "lua",
-		"prefix": "inventory subItemById ASYNC",
+		"prefix": "inventory subItemID ASYNC",
 		"body": [
-			"exports.vorp_inventory:subItemById(${1|source|}, ${2|id|}, function(result)",
+			"exports.vorp_inventory:subItemID(${1|source|}, ${2|id|}, function(result)",
 		    "  print(result)",
 			"end)",
 			"$0"
 		],
 		"description": "sub item by id "
 	},
-	"subItemById SYNC(server)": {
+	"subItemID SYNC(server)": {
 		"scope": "lua",
-		"prefix": "inventory subItemById SYNC",
+		"prefix": "inventory subItemID SYNC",
 		"body": [
-			"exports.vorp_inventory:subItemById(${1|source|}, ${2|id|})",
+			"exports.vorp_inventory:subItemID(${1|source|}, ${2|id|})",
 			"$0"
 		],
 		"description": "sub item by id  "
@@ -423,7 +504,7 @@
 		"scope": "lua",
 		"prefix": "inventory subItem ASYNC",
 		"body": [
-			"exports.vorp_inventory:subItem(${1|source|}, \"${2|item|}\", ${3|amount|}, ${4|nil,metadata|}, function(result)",
+			"exports.vorp_inventory:subItem(${1|source|}, \"${2|item|}\", ${3|amount|}, ${4|nil, metadata|}, function(result)",
 		    "  print(result)",
 			"end)",
 			"$0"

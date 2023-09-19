@@ -2,7 +2,7 @@
   "name": "vorp-framework-vsc",
   "displayName": "vorp framework vsc",
   "description": "auto-completion Snippets for vorp core framework RedM",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publisher": "outsider3100",
   "repository": {
     "type": "git",
@@ -30,6 +30,5 @@
     ]
   }
 }
-
 
 

@@ -1,39 +1,20 @@
 {
-	//CORE API
+	// CORE API
 	"GET CORE OBJECT (server/client)": {
 		"scope": "lua",
-		"prefix": "core getCore",
+		"prefix": "core GetCore",
 		"body": [
-			"Core = {}",
-			"TriggerEvent('getCore', function(obj)",
-			"  Core = obj",
-			"end)",
+			"local Core = exports.vorp_core:GetCore()",
 			"$0"
 		],
-		"description": "get core object can be used in server or client"
+		"description": "get core object can be used in server or client files"
 	},
-    "GET CALLBACK OBJECT (server)": {
-		"scope": "lua",
-		"prefix": "callback",
-		"body": [
-			"local ServerRPC = exports.vorp_core:ServerRpcCall()",
-		],
-		"description": "callback object can be used in server"
-	},
-	"GET CALLBACK OBJECT (client)": {
-		"scope": "lua",
-		"prefix": "callback",
-		"body": [
-			"local ClientRPC = exports.vorp_core:ClientRpcCall()",
-		],
-		"description": "callback object can be used in client"
-	},
-
+   // CALLBACKS
 	"REGISTER CALLBACK (server)": {
 		"scope": "lua",
 		"prefix": "register callback",
 		"body": [
-			"ServerRPC.Callback.Register(\"${1|callbackname|}\", function(source, cb, ${4|args,...|})",
+			"Core.Callback.Register(\"${1|callbackname|}\", function(source, cb, ${4|args,...|})",
 			"  return cb(any)",
 			"end)",
 			"$0"
@@ -44,7 +25,7 @@
 		"scope": "lua",
 		"prefix": "trigger callback",
 		"body": [
-			"local result = ClientRPC.Callback.TriggerAwait(\"${1|callbackname|}\",source, ${4|args,...|})",
+			"local result = Core.Callback.TriggerAwait(\"${1|callbackname|}\",source, ${4|args,...|})",
 			"$0"
 		],
 		"description": "Trigger callback Await server side"
@@ -53,7 +34,7 @@
 		"scope": "lua",
 		"prefix": "trigger callback",
 		"body": [
-			"ClientRPC.Callback.TriggerAsync(\"${1|callbackname|}\",source, function(result)"
+			"Core.Callback.TriggerAsync(\"${1|callbackname|}\",source, function(result)"
 			" print(result)",
 			"end, ${4|args,...|})",
 			"$0"
@@ -64,7 +45,7 @@
 		"scope": "lua",
 		"prefix": "trigger callback",
 		"body": [
-			"ClientRPC.Callback.Register(\"${1|callbackname|}\", function(cb, ${4|args,...|})",
+			"Core.Callback.Register(\"${1|callbackname|}\", function(cb, ${4|args,...|})",
 			"  return cb(any)",
 			"end)",
 			"$0"
@@ -75,7 +56,7 @@
 		"scope": "lua",
 		"prefix": "trigger callback",
 		"body": [
-			"local result = ClientRPC.Callback.TriggerAwait(\"${1|callbackname|}\", ${4|args,...|})",
+			"local result = Core.Callback.TriggerAwait(\"${1|callbackname|}\", ${4|args,...|})",
 			"$0"
 		],
 		"description": "Trigger callback Await client side"
@@ -84,7 +65,7 @@
 		"scope": "lua",
 		"prefix": "trigger callback",
 		"body": [
-			"ClientRPC.Callback.TriggerAsync(\"${1|callbackname|}\", function(result)"
+			"Core.Callback.TriggerAsync(\"${1|callbackname|}\", function(result)"
 			" print(result)",
 			"end, ${4|args,...|})",
 			"$0"
@@ -92,29 +73,7 @@
 		"description": "Trigger callback Async client side"
 	},
 
-/* 	"CALLBACK (server)": {
-		"scope": "lua",
-		"prefix": "core addRpcCallback callback",
-		"body": [
-			"Core.addRpcCallback(\"${1|RPCcallbackname|}\", function(source, cb, args)",
-			"  return cb(any)",
-			"end)",
-			"$0"
-		],
-		"description": "server callback register"
-	},
-	"CALLBACK (client)": {
-		"scope": "lua",
-		"prefix": "core RpcCall callback",
-		"body": [
-			"Core.RpcCall(\"${1|RPCcallbackname|}\", function(result)",
-			"  if not result then end",
-			"end,${2:args})",
-			"$0"
-		],
-		"description": "client callback trigger"
-	}, */
-
+	//NOTIFICATIONS
 	"CORE BASIC NOTIFY (server)": {
 		"scope": "lua",
 		"prefix": "core Notify",
@@ -173,15 +132,15 @@
 		],
 		"description": "Notifications client side"
 	},
-      
+    //FUNCTIONS 
 	"ADD WEBHOOK (server/client)": {
 		"scope": "lua",
 		"prefix": "core addWebhook",
 		"body": [
-			"Core.AddWebhook(\"${1|title|}\",\"${2|webhooklink|}\",\"${3|description|}\",\"${4|color|}\",\"${5|name|}\",\"${6|logo|}\",\"${7|footerlogo|}\",\"${8|avatar|}\")",
+			"Core.AddWebhook(\"${1|title|}\",\"${2|webhooklink|}\",\"${3|description|}\",${4|color|}\,\"${5|name|}\",\"${6|logo|}\",\"${7|footerlogo|}\",\"${8|avatar|}\")",
 			"$0"
 		],
-		"description": "add webhook to discord"
+		"description": "send webhook to discord"
 	},
 	"PLAYER INSTANCE (client)": {
 		"scope": "lua",
@@ -191,7 +150,7 @@
 			"Core.instancePlayers(${1:number})",
 			"$0"
 		],
-		"description": "add webhook to discord"
+		"description": "instance players"
 	},
 	 "GET USER OBJECT (server)": {
 	 	"scope": "lua",
@@ -200,8 +159,17 @@
 	 		"user = Core.getUser(${3:_source})",
 	 		"$0"
 	 	],
-	 	"description": " get User object"
+	 	"description": " get User object only returns if user is online"
 	 },
+	 "GET USER OBJECT BY CHARID (server)": {
+		"scope": "lua",
+		"prefix": "user object",
+		"body": [
+			"user = Core.getUser(${3:charid})",
+			"$0"
+		],
+		"description": " get User object by charid only returns if user is online"
+	},
 	 "GET USER GROUP (server)": {
 	 	"scope": "lua",
 	 	"prefix": "user group",
@@ -209,27 +177,33 @@
 	 		"user_${1|group,hours|} = user.${2|getGroup,hours|}",
 	 		"$0"
 	 	],
-	 	"description": "get user group"
+	 	"description": "get user group from users database table"
 	 },
 
 	 "GET CHARACTER OBJECT (server)": {
 		"scope": "lua",
 		"prefix": "character object",
-		"body": ["character = Core.getUser(${3:_source}).getUsedCharacter", "$0"],
-		"description": " get character object"
+		"body": [
+		"character = Core.getUser(${3:_source}).getUsedCharacter",
+		 "$0"
+		],
+		"description": " get character object, check if user exists first"
 	},
+
 	"GET CHARACTER DATA (server)": {
 		"scope": "lua",
 		"prefix": "character DATA",
-		"body": ["char_${1|identifier,charid,job,grade,group,name,coords,isDead,gold,rol,xp,money,skin,comps|} = character.${2|identifier,charIdentifier,job,jobGrade,group,firstname ..' '.. character.lastname,coords,isDead,gold,rol,xp,money,skin,comps|}",
+		"body": ["char_${1|identifier,charid,job,grade,group,name,age,gender,nickname,charDescription,coords,isDead,gold,rol,xp,money,skin,comps|} = character.${2|identifier,charIdentifier,job,jobGrade,group,firstname ..' '.. character.lastname,age,gender,nickname,charDescription,coords,isDead,gold,rol,xp,money,skin,comps|}",
 			"$0"],
 		"description": " get character data "
 	},
 	" CHARACTER FUNCTIONS (server)": {
 		"scope": "lua",
 		"prefix": "character FUNCTIONS",
-		"body": ["character.${1|setJob(,setJobGrade(,setGroup(,addCurrency(,removeCurrency(,addXp(,removeXp(,updateComps(json.encode(,updateSkin(json.encode(,setFirstname(,setLastname(,setRol(,removeRol(|}$2)$3",
-			"$0"],
+		"body": [
+			"character.${1|setJob(,setJobGrade(,setGroup(,setAge(,setGender(,setCharDescription(,setNickName(,addCurrency(,removeCurrency(,addXp(,removeXp(,updateComps(json.encode(,updateSkin(json.encode(,setFirstname(,setLastname(,setRol(,removeRol(|}$2)$3",
+			"$0"
+		],
 		"description": "set character data "
 	},
 	//INPUTS
@@ -265,11 +239,11 @@
 	},
     //INVENTORY
 	//ITEMS
-	"canCarryItem ASYNC(server)": {
+	"canCarryItems ASYNC(server)": {
 		"scope": "lua",
 		"prefix": "inventory canCarryItem ASYNC",
 		"body": [
-			"exports.vorp_inventory:canCarryItem(${1|source|}, ${2|amount|}, function(result)",
+			"exports.vorp_inventory:canCarryItems(${1|source|}, ${2|amount|}, function(result)",
 			"   if not result then",
 			"     return print(\"cant carry\")",
 			"   end",
@@ -277,11 +251,11 @@
 		],
 		"description": "check if player can carry item by checking inventory limit "
 	},
-	"canCarryItem SYNC(server)": {
+	"canCarryItems SYNC(server)": {
 		"scope": "lua",
 		"prefix": "inventory canCarryItem SYNC",
 		"body": [
-			"canCarryInv = exports.vorp_inventory:canCarryItem(${1|source|}, ${2|amount|})",
+			"canCarryInv = exports.vorp_inventory:canCarryItems(${1|source|}, ${2|amount|})",
 			"if not canCarryInv then",
 			"   return print(\"cant carry\")",
 			"end",
@@ -290,11 +264,11 @@
 		"description": "check if player can carry item by checking inventory limit  "
 	},
 
-	"canCarryItems ASYNC (server)": {
+	"canCarryItem ASYNC (server)": {
 		"scope": "lua",
 		"prefix": "inventory canCarryItems ASYNC",
 		"body": [
-			"exports.vorp_inventory:canCarryItems(${1|source|}, \"${2|item|}\", ${3|amount|}, function(result)",
+			"exports.vorp_inventory:canCarryItem(${1|source|}, \"${2|item|}\", ${3|amount|}, function(result)",
 			"   if not result then",
 			"      return print(\"cant carry\")",
 			"   end",
@@ -303,11 +277,11 @@
 		"description": "check if player can carry item by checking item limit "
 	},
 	
-	"canCarryItems SYNC (server)": {
+	"canCarryItem SYNC (server)": {
 		"scope": "lua",
 		"prefix": "inventory canCarryItems SYNC",
 		"body": [
-			"canCarryItem = exports.vorp_inventory:canCarryItems(${1|source|}, \"${2|item|}\", ${3|amount|})",
+			"canCarryItem = exports.vorp_inventory:canCarryItem(${1|source|}, \"${2|item|}\", ${3|amount|})",
 			"if not canCarryItem then",
 			"   return print(\"cant carry\")",
 			"end",
@@ -329,7 +303,7 @@
 		"scope": "lua",
 		"prefix": "inventory getUserInventoryItems SYNC",
 		"body": [
-			"inv = exports.vorp_inventory:getUserInventoryItems(${1|source|})",
+			" inv = exports.vorp_inventory:getUserInventoryItems(${1|source|})",
 			"if not inv then",
 			"   return print(\"empty\")",
 			"end",
@@ -354,7 +328,7 @@
 		"scope": "lua",
 		"prefix": "inventory getItemCount ASYNC",
 		"body": [
-			"itemCount = exports.vorp_inventory:getItemCount(${1|source|},nil,\"${2|item|}\", ${3|nil,metadata|})",
+			" itemCount = exports.vorp_inventory:getItemCount(${1|source|},nil,\"${2|item|}\", ${3|nil,metadata|})",
 			"$0"
 		],
 		"description": "get item count "
@@ -380,11 +354,11 @@
 			"end",
 			"$0"
 		],
-		"description": "get item count "
+		"description": "does item exist "
 	},
 	"getItemDB SYNC(server)": {
 		"scope": "lua",
-		"prefix": "inventory getItemCount SYNC",
+		"prefix": "inventory getItemDB SYNC",
 		"body": [
 			"exports.vorp_inventory:getItemDB(\"${2|item|}\", function(result)",
 		    " if not result then",
@@ -393,7 +367,7 @@
 			"end)",
 			"$0"
 		],
-		"description": "get item count "
+		"description": "does item exist "
 	},
 	"getItemByName ASYNC (server)": {
 		"scope": "lua",
@@ -453,7 +427,7 @@
 		"scope": "lua",
 		"prefix": "inventory addItem SYNC",
 		"body": [
-			"exports.vorp_inventory:addItem(${1|source|}, \"${2|item|}\", ${3|amount|}, ${4|nil,metadata|})",			
+			"result = exports.vorp_inventory:addItem(${1|source|}, \"${2|item|}\", ${3|amount|}, ${4|nil,metadata|})",			
 			"$0"
 		],
 		"description": "add item   "
@@ -720,7 +694,7 @@
 			"end)",
 			"$0"
 		],
-		"description": "delete weapon "
+		"description": "delete weapon must be used toghether with subWeapon "
 	},
 	"deleteWeapon SYNC(server)": {
 		"scope": "lua",
@@ -729,7 +703,7 @@
 			"exports.vorp_inventory:deleteWeapon(${1|source|}, ${2|weaponID|})",
 			"$0"
 		],
-		"description": "delete weapon "
+		"description": "delete weapon must be used toghether with subWeapon "
 	},
 	"createWeapon ASYNC(server)": {
 		"scope": "lua",
@@ -745,11 +719,11 @@
 	"createWeapon SYNC(server)": {
 		"scope": "lua",
 		"prefix": "inventory createWeapon SYNC",
-		"body": [
-			"exports.vorp_inventory:createWeapon(${1|source|}, \"${2|weaponName|}\", ${3|ammo|}, ${4|components|}, ${5|comps|})",
+		"body": [ //last params is serial,label,desc
+			"exports.vorp_inventory:createWeapon(${1|source|}, \"${2|weaponName|}\", ${3|ammo|}, ${4|components|}, ${5|comps|}, ${6|nil,serial|}, ${7|nil,label|}, ${8|nil,desc|})",
 			"$0"
 		],
-		"description": "create weapon "
+		"description": "create weapon, serial,label and desc are optional to create custom ones "
 	},
 	"giveWeapon ASYNC(server)": {
 		"scope": "lua",
@@ -796,10 +770,10 @@
 		"scope": "lua",
 		"prefix": "inventory registerInventory",
 		"body": [
-			"exports.vorp_inventory:registerInventory(\"${1|invId|}\", \"${2|name|}\", ${3|slots|}, ${4|acceptWeapons|}, ${5|shared|}, ${6|ignoreStack|}, ${7|whitelistItems|}, ${8|usePermisions|}, ${9|useBlacklist|}, ${10|whitelistWeapons|})",
+			"exports.vorp_inventory:registerInventory({ id = \"${1|invId|}\", name = \"${2|name|}\", limit = ${3|limit|}, acceptWeapons = ${4|true|}, shared = ${5|false|}, ignoreItemStackLimit = ${6|false|}, whitelistItems = ${7|false|}, UsePermissions = ${8|false|}, UseBlackList = ${9|false|}, whitelistWeapons = ${10|false|} })",
 			"$0"
 		],
-		"description": "register inventory "
+		"description": "register inventory, it uses a table "
 	},
 	"addPermissionMoveToCustom (server)": {
 		"scope": "lua",
@@ -844,7 +818,7 @@
 			"exports.vorp_inventory:updateCustomInventorySlots(\"${1|invId|}\", ${2|slots|})",
 			"$0"
 		],
-		"description": "update custom inventory slots"
+		"description": "update custom inventory slots dynamically"
 	},
 	"setCustomInventoryItemLimit (server)": {
 		"scope": "lua",
@@ -871,7 +845,7 @@
 			"exports.vorp_inventory:openInventory(${1|source|}, \"${2|invId,nil|}\")",
 			"$0"
 		],
-		"description": "open custom inventory"
+		"description": "open custom inventory or default inventory both can be used "
 	},
 	"closeInventory (server)": {
 		"scope": "lua",
@@ -880,10 +854,50 @@
 			"exports.vorp_inventory:closeInventory(${1|source|}, \"${2|invId,nil|}\")",
 			"$0"
 		],
-		"description": "close custom inventory"
+		"description": "close custom inventory or default inventory both can be used "
+	},
+
+	"isCustomInventoryRegistered ASYNC (server)": {
+		"scope": "lua",
+		"prefix": "inventory isCustomInventoryRegistered ASYNC",
+		"body": [
+			"exports.vorp_inventory:isCustomInventoryRegistered(\"${1|invId|}\", function(result)",
+		    "  print(result)",
+			"end)",
+			"$0"
+		],
+		"description": "check if custom inventory is registered "
+	},
+
+	"isCustomInventoryRegistered SYNC (server)": {
+		"scope": "lua",
+		"prefix": "inventory isCustomInventoryRegistered SYNC",
+		"body": [
+			"result = exports.vorp_inventory:isCustomInventoryRegistered(\"${1|invId|}\")",
+			"$0"
+		],
+		"description": "check if custom inventory is registered "
+	},
+	// STATEBAGS
+	"CHARACTER STATEBAGS (client)": {
+		"scope": "lua",
+		"prefix": "statebag getCharacter",
+		"body": [
+			"local character = LocalPlayer.state.Character",
+			"print(character.${1|FirstName,LastName,Job,JobLabel,Grade,Group,Age,Gender,CharDescription,Money,Gold|})",
+			"$0"
+		],
+		"description": "get character statebag use this only for light perms or visual purposes"
+	},
+	"PLAYER IsInSession STATEBAG (client)": {
+		"scope": "lua",
+		"prefix": "statebag getPlayer",
+		"body": [
+			"local player = LocalPlayer.state",
+			"print(player.${1|IsInSession|})",
+			"$0"
+		],
+		"description": "get player statebag IsInSession will return true or false"
 	},
 
 }
-
-
-

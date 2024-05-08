@@ -639,6 +639,29 @@
 		],
 		"description": "sub bullets "
 	},
+	"getUserAmmo ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getUserAmmo ASYNC",
+		"body": [
+			"exports.vorp_inventory:getUserAmmo(${1|source|}}, function(result)",
+			"if result then",
+		    "  print(json.encode(result))",
+			"end",
+			"end)",
+			"$0"
+		],
+		"description": "get user ammo "
+	},
+
+	"getUserAmmo SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory getUserAmmo SYNC",
+		"body": [
+			"ammo = exports.vorp_inventory:getUserAmmo(${1|source|})",
+			"$0"
+		],
+		"description": "get user ammo "
+	},
 	"getWeaponComponents ASYNC(server)": {
 		"scope": "lua",
 		"prefix": "inventory getWeaponComponents ASYNC",
@@ -693,7 +716,7 @@
 	"createWeapon SYNC(server)": {
 		"scope": "lua",
 		"prefix": "inventory createWeapon SYNC",
-		"body": [ //last params is serial,label,desc
+		"body": [ 
 			"exports.vorp_inventory:createWeapon(${1|source|}, \"${2|weaponName|}\", ${3|ammo|}, ${4|components|}, ${5|comps|}, ${6|nil,serial|}, ${7|nil,label|}, ${8|nil,desc|})",
 			"$0"
 		],
@@ -852,6 +875,28 @@
 		],
 		"description": "check if custom inventory is registered "
 	},
+	"openPlayerInventory SYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory openPlayerInventory",
+		"body": [
+			"local data= {} --see documentaion",
+			"result = exports.vorp_inventory:openPlayerInventory(${1|data|})",
+			"$0"
+		],
+		"description": "open player inventory "
+	},
+	"openPlayerInventory ASYNC(server)": {
+		"scope": "lua",
+		"prefix": "inventory openPlayerInventory",
+		"body": [
+			"local data= {} --see documentaion",
+			"exports.vorp_inventory:openPlayerInventory(${1|data|}, function(result)",
+		    "  print(result)",
+			"$0"
+		],
+		"description": "open player inventory "
+	},
+
 	// STATEBAGS
 	"CHARACTER STATEBAGS (client)": {
 		"scope": "lua",

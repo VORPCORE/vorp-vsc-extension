@@ -34,7 +34,7 @@
 		"scope": "lua",
 		"prefix": "trigger callback",
 		"body": [
-			"Core.Callback.TriggerAsync(\"${1|callbackname|}\",source, function(result)"
+			"Core.Callback.TriggerAsync(\"${1|callbackname|}\",source, function(result)",
 			" print(result)",
 			"end, ${4|args,...|})",
 			"$0"
@@ -65,7 +65,7 @@
 		"scope": "lua",
 		"prefix": "trigger callback",
 		"body": [
-			"Core.Callback.TriggerAsync(\"${1|callbackname|}\", function(result)"
+			"Core.Callback.TriggerAsync(\"${1|callbackname|}\", function(result)",
 			" print(result)",
 			"end, ${4|args,...|})",
 			"$0"
@@ -137,7 +137,7 @@
 		"scope": "lua",
 		"prefix": "core addWebhook",
 		"body": [
-			"Core.AddWebhook(\"${1|title|}\",\"${2|webhooklink|}\",\"${3|description|}\",${4|color|}\,\"${5|name|}\",\"${6|logo|}\",\"${7|footerlogo|}\",\"${8|avatar|}\")",
+			"Core.AddWebhook(\"${1|title|}\",\"${2|webhooklink|}\",\"${3|description|}\",${4|color|}\",\"${5|name|}\",\"${6|logo|}\",\"${7|footerlogo|}\",\"${8|avatar|}\")",
 			"$0"
 		],
 		"description": "send webhook to discord"
@@ -239,31 +239,6 @@
 	},
     //INVENTORY
 	//ITEMS
-	"canCarryItems ASYNC(server)": {
-		"scope": "lua",
-		"prefix": "inventory canCarryItem ASYNC",
-		"body": [
-			"exports.vorp_inventory:canCarryItems(${1|source|}, ${2|amount|}, function(result)",
-			"   if not result then",
-			"     return print(\"cant carry\")",
-			"   end",
-			"end)"
-		],
-		"description": "check if player can carry item by checking inventory limit "
-	},
-	"canCarryItems SYNC(server)": {
-		"scope": "lua",
-		"prefix": "inventory canCarryItem SYNC",
-		"body": [
-			"canCarryInv = exports.vorp_inventory:canCarryItems(${1|source|}, ${2|amount|})",
-			"if not canCarryInv then",
-			"   return print(\"cant carry\")",
-			"end",
-			"$0"
-		],
-		"description": "check if player can carry item by checking inventory limit  "
-	},
-
 	"canCarryItem ASYNC (server)": {
 		"scope": "lua",
 		"prefix": "inventory canCarryItems ASYNC",
@@ -276,7 +251,6 @@
 		],
 		"description": "check if player can carry item by checking item limit "
 	},
-	
 	"canCarryItem SYNC (server)": {
 		"scope": "lua",
 		"prefix": "inventory canCarryItems SYNC",
@@ -324,18 +298,18 @@
 		],
 		"description": "register usable item "
 	},
-	"getItemCount ASYNC(server)": {
+	"getItemCount SYNC(server)": {
 		"scope": "lua",
-		"prefix": "inventory getItemCount ASYNC",
+		"prefix": "inventory getItemCount SYNC",
 		"body": [
 			" itemCount = exports.vorp_inventory:getItemCount(${1|source|},nil,\"${2|item|}\", ${3|nil,metadata|})",
 			"$0"
 		],
 		"description": "get item count "
 	},
-	"getItemCount SYNC(server)": {
+	"getItemCount ASYNC(server)": {
 		"scope": "lua",
-		"prefix": "inventory getItemCount SYNC",
+		"prefix": "inventory getItemCount ASYNC",
 		"body": [
 			"exports.vorp_inventory:getItemCount(${1|source|}, function(result)",
 		    " print(result)",

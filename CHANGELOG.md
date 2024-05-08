@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.0.9]
+- fixed getItemCount
+- added new exports `getUserAmmo` `openePlayerInventory`
+- removed deprecated export `canCarryItems`
+
 ## [0.0.8]
 
 - fixed registerCustomInventory it uses a table with defined parameteres

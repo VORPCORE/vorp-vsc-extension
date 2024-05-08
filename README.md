@@ -7,6 +7,7 @@ vorp core is a framework for `RedM` by CFX.re based on the game Read dead redemp
 *  `Inventory exports with async and sync calls` old API isnt used here only inventory new export methods are/will be supported.
 *  `Core, user,character auto completion Snippets`
 *  `Advanced inputs auto completion snippet` 
+*  `state bags`
 
 ## Requirements
 

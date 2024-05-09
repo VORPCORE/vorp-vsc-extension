@@ -241,7 +241,7 @@
 	//ITEMS
 	"canCarryItem ASYNC (server)": {
 		"scope": "lua",
-		"prefix": "inventory canCarryItems ASYNC",
+		"prefix": "inventory canCarryItem ASYNC",
 		"body": [
 			"exports.vorp_inventory:canCarryItem(${1|source|}, \"${2|item|}\", ${3|amount|}, function(result)",
 			"   if not result then",
@@ -253,7 +253,7 @@
 	},
 	"canCarryItem SYNC (server)": {
 		"scope": "lua",
-		"prefix": "inventory canCarryItems SYNC",
+		"prefix": "inventory canCarryItem SYNC",
 		"body": [
 			"canCarryItem = exports.vorp_inventory:canCarryItem(${1|source|}, \"${2|item|}\", ${3|amount|})",
 			"if not canCarryItem then",

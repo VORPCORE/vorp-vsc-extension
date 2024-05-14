@@ -32,7 +32,6 @@ jobs:
         npm install -g vsce
 
     - name: Package the VORP extension
-      if: steps.bumping-version.outputs.bump-performed == 'true'
       run: |
         vsce package
         vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}  

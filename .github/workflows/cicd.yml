@@ -35,5 +35,4 @@ jobs:
       if: steps.bumping-version.outputs.bump-performed == 'true'
       run: |
         vsce package
-
-# vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}  
+        vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}  

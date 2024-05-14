@@ -2,11 +2,11 @@
   "name": "vorp-framework-vsc",
   "displayName": "vorp framework vsc",
   "description": "auto-completion Snippets for vorp core framework RedM",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "outsider3100",
   "repository": {
     "type": "git",
-    "url": "https://github.com/VORPCORE/vorp-vsc-extension"   
+    "url": "https://github.com/VORPCORE/vorp-vsc-extension"
   },
   "keywords": [
     "Lua",
@@ -30,5 +30,3 @@
     ]
   }
 }
-
-

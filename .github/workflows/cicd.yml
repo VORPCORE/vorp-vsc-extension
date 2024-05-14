@@ -18,12 +18,21 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
 
+    - name: Bumping version
+      uses: jpb06/bump-package@latest
+      with:
+        major-keywords: BREAKING CHANGE
+        minor-keywords: feat,minor
+        patch-keywords: fix,chore
+        should-default-to-patch: true
+
     - name: Install vsce npm package
       run: |
         npm install
         npm install -g vsce
 
     - name: Package the VORP extension
+      if: steps.bumping-version.outputs.bump-performed == 'true'
       run: |
         vsce package
 

@@ -1,0 +1,30 @@
+name: CICD
+on:
+  push:
+    branches: [ master ]
+
+env:
+  NODE_VERSION: '20.x'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v4
+    
+    - name: Setup Node ${{ env.NODE_VERSION }} Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install vsce npm package
+      run: |
+        npm install
+        npm install -g vsce
+
+    - name: Package the VORP extension
+      run: |
+        vsce package
+
+# vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}  
